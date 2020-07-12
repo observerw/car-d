@@ -1,0 +1,59 @@
+.input {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    padding: 10px;
+    outline: none;
+    font-size: 17px;
+    flex: 1;
+    color: rgb(0, 0, 0, 0.65);
+}
+
+.inputTextarea {
+    height: 58px;
+}
+
+.inputArea {
+    margin-bottom: 50px;
+    width: 600px;
+    height: 100%;
+}
+
+.inputArea .operArea {
+    width: 600px;
+}
+
+.inputField {
+    color: gray;
+    padding: 10px;
+    margin: 5px;
+    display: flex;
+}
+
+.inputField .itemName {
+    width: 150px;
+    font-size: 20px;
+}
+
+.imgInput {
+    position: relative;
+    padding: 0;
+    font-size: 15px;
+    text-align: center;
+    vertical-align: middle;
+    border: 2px dashed #e6e6e6;
+}
+
+#rawImgInput {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 10;
+    cursor: pointer;
+}
+
+#preview {
+    width: 150px;
+}

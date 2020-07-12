@@ -1,0 +1,51 @@
+.topButton {
+    position: fixed;
+    right: 5%;
+    bottom: 9%;
+    width: 42px;
+    height: 42px;
+    background-color: rgb(51, 163, 255);
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow: 0 0px 5px rgb(156, 156, 156);
+}
+
+.topButton:before {
+    content: '▲';
+    display: block;
+    text-align: center;
+    color: white;
+    line-height: 42px;
+}
+
+.jump {
+    position: fixed;
+    top: 140px;
+    left: 100px;
+}
+
+.jumpPoint {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.jumpPointNum {
+    font-size: 30px;
+    color: rgb(51, 163, 255);
+    text-align: center;
+}
+
+.jumpItems {
+    font-size: 20px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+    border-left: 3px solid gray;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.jumpItems:hover {
+    color: rgb(51, 163, 255);
+    border-color: rgb(51, 163, 255);
+}
