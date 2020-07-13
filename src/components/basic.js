@@ -10,6 +10,7 @@ class Basic extends React.Component {
         background: '',
         image: ' ',
     };
+
     constructor(props) {
         super(props);
         this.state = Basic.temp;

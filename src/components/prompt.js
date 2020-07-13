@@ -34,7 +34,7 @@ class Jump extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ num:props.num });
+        this.setState({ num: props.num });
     }
 
     render() {
