@@ -12,6 +12,7 @@ class App extends React.Component {
             ser: 0,
             point: 20,
             isPress: false,
+            isInitial: true,
         }
         this.callback = {
             cost: this.changePoint.bind(this),
@@ -34,15 +35,13 @@ class App extends React.Component {
     handleKeyPress(mode, e) {
         if (mode) {
             if (!this.state.isPress && e.keyCode == 17) this.setState({ isPress: true });
-        }
-        else {
-            this.setState({ isPress: false });
-        }
+        } else this.setState({ isPress: false });
     }
 
     changeSer(e) {
         window.scrollTo(0, 0);
         if (this.state.ser > this.pageNum || this.state.ser < 0) return;
+        if (this.state.ser === this.pageNum - 2 && this.state.isInitial) this.setState({ isInitial: false });
         if (e.target.value === 'add')
             this.setState({ ser: this.state.ser + 1 });
         if (e.target.value === 'sub')
@@ -87,7 +86,7 @@ class App extends React.Component {
             <Normal callback={this.callback} />, <Result data={this.state} />];
         return (
             <div className="App">
-                <Jump change={this.jumpSer.bind(this)} num={this.state.point} />
+                <Jump change={this.jumpSer.bind(this)} num={this.state.point} isInitial={this.state.isInitial} />
                 <div className='inputArea'>
                     {temp[this.state.ser]}
                 </div>

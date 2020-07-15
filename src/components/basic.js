@@ -1,6 +1,7 @@
 import React, { createRef } from 'react'
 import sha256 from 'js-sha256'
 import './CSS/basic.css'
+import Popover from 'react-popover'
 
 class Basic extends React.Component {
     static temp = {
@@ -56,7 +57,6 @@ class Basic extends React.Component {
         return (
             <div className='basicInput'>
                 <div className='title'>基本信息</div>
-
                 {[this.geneInput('调查员姓名', 'name'),
                 this.geneInput('职业', 'occupation'),
                 this.geneInput('性格特征', 'character'),

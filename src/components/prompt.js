@@ -12,12 +12,12 @@ class Jump extends React.Component {
         super(props);
         this.state = {
             isShow: true,
-            num: props.num
+            num: props.num,
+            isShow: !props.isInitial,
         };
         this.change = props.change;
         this.name = ['基本信息', '学术能力', '社交能力', '普通能力', '结果'].map(
             (v, i) => <div className='jumpItems' onClick={(e) => { this.change(i) }}>{v}</div>);
-
     }
 
     handleResize(e) {
@@ -34,14 +34,17 @@ class Jump extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ num: props.num });
+        this.setState({
+            num: props.num,
+            isShow: !props.isInitial,
+        });
     }
 
     render() {
         if (window.innerWidth <= 1050 && this.state.isShow) return <div></div>;
         return (
             (<div className='jump'>
-                {this.name}
+                {this.state.isShow && this.name}
                 <div className='jumpPoint'>
                     剩余总点数
             <div className='jumpPointNum'>{this.state.num}</div>
