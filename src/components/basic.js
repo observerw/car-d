@@ -1,7 +1,6 @@
 import React, { createRef } from 'react'
 import sha256 from 'js-sha256'
 import './CSS/basic.css'
-import Popover from 'react-popover'
 
 class Basic extends React.Component {
     static temp = {

@@ -8,6 +8,13 @@
     margin-right: 300px;
     width: 150px;
     font-size: 25px;
+    cursor: pointer;
+}
+
+.propPrompt {
+    position: relative;
+    display: inline;
+    border: 1px solid black;
 }
 
 .propCtrl {
@@ -44,4 +51,9 @@
 
 .propBtn-right {
     border-radius: 0 50px 50px 0;
+}
+
+.tips {
+    width: 200px;
+    border-radius: 10px;
 }

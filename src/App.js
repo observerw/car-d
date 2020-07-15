@@ -10,7 +10,7 @@ class App extends React.Component {
         super(props);
         this.state = {
             ser: 0,
-            point: 20,
+            point: 100,
             isPress: false,
             isInitial: true,
         }
@@ -83,7 +83,8 @@ class App extends React.Component {
             <Basic submit={this.handleSubmit.bind(this)} />,
             <Academic callback={this.callback} />,
             <Social callback={this.callback} />,
-            <Normal callback={this.callback} />, <Result data={this.state} />];
+            <Normal callback={this.callback} />,
+            <Result data={this.state} />];
         return (
             <div className="App">
                 <Jump change={this.jumpSer.bind(this)} num={this.state.point} isInitial={this.state.isInitial} />

@@ -1,18 +1,40 @@
 import React from 'react';
 import sha256 from 'js-sha256'
+import ReactTooltip from 'react-tooltip'
 import './CSS/prop.css'
+import data from './data/prompt.json'
 var temp = {};
+var transName = {
+    Academic: '学术能力',
+    Social: '社交能力',
+    Normal: '普通能力'
+}
 
 class PropItem extends React.Component {
+    static tipStyle = {
+        "data-place": "right",
+        "data-type": "info",
+        "data-background-color":"white",
+        "data-text-color":"rgb(0, 0, 0, 0.65)",
+        "data-class":"tips"
+    };
+
     constructor(props) {
         super(props);
         this.state = {
             num: props.value,
+            isPrompt: false,
         }
         this.name = props.name;
+        this.class = props.class;
+        this.intro = data[transName[this.class]][this.name];
         this.total = props.callback.total;   //总点数回调
         this.partial = props.callback.partial;   //类别统计回调
         this.partial(this.name, this.state.num);
+    }
+
+    handlePrompt() {
+        this.setState({ isPrompt: true })
     }
 
     changeNum(e) {
@@ -26,7 +48,8 @@ class PropItem extends React.Component {
     render() {
         return <tr>
             <td className='propItem'>
-                <div className='propName'>
+                <ReactTooltip/>
+                <div className='propName' data-tip={this.intro} {...PropItem.tipStyle}>
                     {this.name}
                 </div>
                 <div className='propCtrl'>
@@ -42,12 +65,6 @@ class PropItem extends React.Component {
 }
 
 class PropTable extends React.Component {
-    static transName = {
-        Academic: '学术能力',
-        Social: '社交能力',
-        Normal: '普通能力'
-    }
-
     constructor(props) {
         super(props);
         this.items = props.items;
@@ -62,7 +79,7 @@ class PropTable extends React.Component {
         if (!(this.name in temp)) temp[this.name] = {};
         this.state = temp[this.name];
         this.res = this.items.map((i) => {
-            return <PropItem name={i} value={i in this.state ? this.state[i] : 0}
+            return <PropItem class={this.name} name={i} value={i in this.state ? this.state[i] : 0}
                 key={sha256(i)} callback={this.callback} />;
         })
     }
@@ -80,7 +97,7 @@ class PropTable extends React.Component {
     render() {
         return (
             <div className='propArea'>
-                <div className='title'>{PropTable.transName[this.name]}</div>
+                <div className='title'>{transName[this.name]}</div>
                 <table>
                     <tbody>
                         {this.res}
