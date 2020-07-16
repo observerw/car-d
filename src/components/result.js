@@ -1,14 +1,12 @@
 import React from 'react';
 import './CSS/result.css'
 import sha256 from 'js-sha256'
+import data from './data/intro.json'
 import html2canvas from 'html2canvas'
 
+var transName = data.transName;
+
 class Result extends React.Component {
-    static transName = {
-        Academic: '学术能力',
-        Social: '社交能力',
-        Normal: '普通能力'
-    }
     constructor(props) {
         super(props);
         this.state = {
@@ -23,7 +21,7 @@ class Result extends React.Component {
 
     handleData(name) {
         if (!(name in this.state.data)) return;
-        let res = [<div className='resultTitle'>{Result.transName[name]}</div>];
+        let res = [<div className='resultTitle' id={'title'}>{transName[name]}</div>];
         let data = this.state.data[name];
         for (let i in data) res.push(
             <div className='resultItems'
@@ -55,12 +53,13 @@ class Result extends React.Component {
             <div className='resultTable'>
                 {this.handleData('Academic')}
                 {this.handleData('Social')}
+                {this.handleData('Technique')}
                 {this.handleData('Normal')}
             </div>
             <div className='backgroundStory'>
                 <h2>背景故事</h2>
                 <article>
-                {basic.background}
+                    {basic.background}
                 </article>
             </div>
         </div>);

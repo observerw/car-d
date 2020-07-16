@@ -1,9 +1,10 @@
 import React from 'react';
-import { Academic, Social, Normal } from './components/prop'
-import { TopButton, Jump } from "./components/prompt";
+import PropTable from './components/prop'
+import { TopButton, Jump } from "./components/tools";
 import Result from './components/result';
 import Basic from './components/basic'
 import './App.css';
+import { sha256 } from 'js-sha256';
 
 class App extends React.Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class App extends React.Component {
             cost: this.changePoint.bind(this),
             submit: this.handleSubmit.bind(this)
         }
-        this.pageNum = 5;
+        this.pageNum = 6;
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
@@ -79,25 +80,26 @@ class App extends React.Component {
     }
 
     render() {
-        var temp = [
+        var page = [
             <Basic submit={this.handleSubmit.bind(this)} />,
-            <Academic callback={this.callback} />,
-            <Social callback={this.callback} />,
-            <Normal callback={this.callback} />,
+            <PropTable name='Academic' key={sha256('Academic')} callback={this.callback} />,
+            <PropTable name='Social' key={sha256('Social')} callback={this.callback} />,
+            <PropTable name='Technique' key={sha256('Technique')} callback={this.callback} />,
+            <PropTable name='Normal' key={sha256('Normal')} callback={this.callback} />,
             <Result data={this.state} />];
         return (
             <div className="App">
                 <Jump change={this.jumpSer.bind(this)} num={this.state.point} isInitial={this.state.isInitial} />
                 <div className='inputArea'>
-                    {temp[this.state.ser]}
+                    {page[this.state.ser]}
                 </div>
                 <div className='buttonArea'>
                     {this.state.ser > 0
                         && <button className='button button-left' value='sub' onClick={this.changeSer.bind(this)}>上一步</button>}
-                    {this.state.ser < 4
+                    {this.state.ser != this.pageNum - 1
                         && <button className='button button-right' value='add' onClick={this.changeSer.bind(this)}>下一步</button>}
+                    <TopButton />
                 </div>
-                <TopButton />
             </div>
         );
     }
