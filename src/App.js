@@ -4,14 +4,15 @@ import { TopButton, Jump } from "./components/tools";
 import Result from './components/result';
 import Basic from './components/basic'
 import './App.css';
-import { sha256 } from 'js-sha256';
+import data from './components/data/intro.json'
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             ser: 0,
-            point: 100,
+            GP: 50,
+            AP: 16,
             isPress: false,
             isInitial: true,
         }
@@ -19,7 +20,7 @@ class App extends React.Component {
             cost: this.changePoint.bind(this),
             submit: this.handleSubmit.bind(this)
         }
-        this.pageNum = 6;
+        this.pageNum = Object.keys(data.transName).length;
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
@@ -54,25 +55,28 @@ class App extends React.Component {
         this.setState({ ser: num });
     }
 
-    changePoint(e, num) {
-        let b = this.state.isPress;
-        let p = this.state.point;
-        if (e.target.value === 'add') {
-            if (this.state.point === 0) return 0;  //如果总点数为0则减小操作无效
-            else {
-                let v = b ? (p > 10 ? 10 : p) : 1;
-                this.setState({ point: p - v });
-                return v;
+    changePoint(mode) {
+        return function(e,num){
+            let b = this.state.isPress;
+            let p = this.state[mode];
+            let name = mode;
+            if (e.target.value === 'add') {
+                if (p === 0) return 0;  //如果总点数为0则减小操作无效
+                else {
+                    let v = b ? (p > 10 ? 10 : p) : 1;
+                    this.setState({ [name]: p - v });
+                    return v;
+                }
             }
-        }
-        else if (e.target.value === 'sub') {
-            if (num === 0) return 0;   //如果对象剩余点数为0则增加操作无效
-            else {
-                let v = b ? (num > 10 ? 10 : num) : 1;
-                this.setState({ point: p + v });
-                return -v;
+            else if (e.target.value === 'sub') {
+                if (num === 0) return 0;   //如果对象剩余点数为0则增加操作无效
+                else {
+                    let v = b ? (num > 10 ? 10 : num) : 1;
+                    this.setState({ [name]: p + v });
+                    return -v;
+                }
             }
-        }
+        }.bind(this);
     }
 
     handleSubmit(data, name) {
@@ -80,16 +84,24 @@ class App extends React.Component {
     }
 
     render() {
+        var rawPage = [
+            <Basic submit={this.handleSubmit.bind(this)} />,
+            <PropTable name='Academic' key={1} callback={this.callback} />,
+            <PropTable name='Social' key={2} callback={this.callback} />,
+            <PropTable name='Technique' key={3} callback={this.callback} />,
+            <PropTable name='Normal' key={4} callback={this.callback} />,
+            <Result data={this.state} />];
         var page = [
             <Basic submit={this.handleSubmit.bind(this)} />,
-            <PropTable name='Academic' key={sha256('Academic')} callback={this.callback} />,
-            <PropTable name='Social' key={sha256('Social')} callback={this.callback} />,
-            <PropTable name='Technique' key={sha256('Technique')} callback={this.callback} />,
-            <PropTable name='Normal' key={sha256('Normal')} callback={this.callback} />,
-            <Result data={this.state} />];
+            <PropTable name='Academic' class="AP" key={1} callback={this.callback} />,
+            <PropTable name='Normal' class="GP" key={2} callback={this.callback} />,
+            <PropTable name='Property' class="GP" key={3} callback={this.callback} />,
+            <Result data={this.state} />
+        ];
+
         return (
             <div className="App">
-                <Jump change={this.jumpSer.bind(this)} num={this.state.point} isInitial={this.state.isInitial} />
+                <Jump change={this.jumpSer.bind(this)} num={[this.state.GP, this.state.AP]} isInitial={this.state.isInitial} />
                 <div className='inputArea'>
                     {page[this.state.ser]}
                 </div>

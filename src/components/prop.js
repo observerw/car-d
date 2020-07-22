@@ -25,6 +25,7 @@ class PropItem extends React.Component {
         this.class = props.class;
         this.intro = data[transName[this.class]][this.name];
         this.total = props.callback.total;   //总点数回调
+        console.log(this.total);
         this.partial = props.callback.partial;   //类别统计回调
         this.partial(this.name, this.state.num);
     }
@@ -66,9 +67,10 @@ class PropTable extends React.Component {
         this.submit = props.callback.submit;
         this.name = props.name;
         this.items = Object.keys(data[transName[this.name]]);
+        this.class = props.class;
 
         this.callback = {
-            total: props.callback.cost,
+            total: props.callback.cost(this.class),
             partial: this.handleCost.bind(this)
         }
 

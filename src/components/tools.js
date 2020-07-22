@@ -16,7 +16,8 @@ class Jump extends React.Component {
         this.state = {
             isShow: window.innerWidth >= 1050,
             isShowList: !props.isInitial,
-            num: props.num,
+            GP: props.num[0],
+            AP: props.num[1],
         };
         this.change = props.change;
         this.names = names.map(
@@ -37,7 +38,8 @@ class Jump extends React.Component {
 
     componentWillReceiveProps(props) {
         this.setState({
-            num: props.num,
+            GP: props.num[0],
+            AP: props.num[1],
             isShowList: !props.isInitial,
         });
     }
@@ -48,8 +50,12 @@ class Jump extends React.Component {
             (<div className='jump'>
                 {this.state.isShowList && this.names}
                 <div className='jumpPoint'>
-                    剩余总点数
-            <div className='jumpPointNum'>{this.state.num}</div>
+                    调查技能点数
+                <div className='jumpPointNum'>{this.state.AP}</div>
+                </div>
+                <div className='jumpPoint'>
+                    通用技能点数
+                <div className='jumpPointNum'>{this.state.GP}</div>
                 </div>
             </div>)
         );

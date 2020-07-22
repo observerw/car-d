@@ -42,19 +42,18 @@ class Result extends React.Component {
                         姓名：<p>{basic.name}</p>
                     </div>
                     <div className='resultBasicItems'>
-                        职业：<p>{basic.occupation}</p>
+                        性格：<p>{basic.character}</p>
                     </div>
                     <div className='resultBasicItems'>
-                        性格：<p>{basic.character}</p>
+                        主武器：<p>{basic.weapon}</p>
                     </div>
                 </div>
                 <img src={basic.image} />
             </div>
             <div className='resultTable'>
+                {this.handleData('Property')}
                 {this.handleData('Academic')}
-                {this.handleData('Social')}
-                {this.handleData('Technique')}
-                {this.handleData('Normal')}
+                {this.handleData('Normal')}       
             </div>
             <div className='backgroundStory'>
                 <h2>背景故事</h2>

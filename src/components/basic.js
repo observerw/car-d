@@ -1,6 +1,7 @@
 import React, { createRef } from 'react'
 import sha256 from 'js-sha256'
 import './CSS/basic.css'
+import data from "./data/intro.json"
 
 class Basic extends React.Component {
     static temp = {
@@ -17,6 +18,7 @@ class Basic extends React.Component {
         this.submit = props.submit;
         this.fileInput = createRef();
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleRandom = this.handleRandom.bind(this);
         this.handleImage = this.handleImage.bind(this);
     }
 
@@ -27,6 +29,14 @@ class Basic extends React.Component {
             e.target.style['height'] = e.target.scrollHeight + 'px';
         }
         this.setState({ [e.target.name]: e.target.value });
+    }
+
+    handleRandom(e) {
+        //只随机一次
+        if (this.state[e.target.name] === '') {
+            let res = data['性格'][Math.floor(Math.random() * 10)];
+            this.setState({ [e.target.name]: res });
+        }
     }
 
     handleImage(e) {
@@ -46,6 +56,7 @@ class Basic extends React.Component {
         let temp;
         if (sta === 0) temp = <input className='input' name={name} value={this.state[name]} onChange={this.handleSubmit} />;
         if (sta === 1) temp = <textarea className='input inputTextarea' name={name} value={this.state[name]} onChange={this.handleSubmit} />;
+        if (sta === 2) temp = <input className='input' name={name} value={this.state[name]} onClick={this.handleRandom} />;
         return (<div className='inputField' key={sha256(name)}>
             <div className='itemName'>{title}：</div>
             {temp}
@@ -57,8 +68,8 @@ class Basic extends React.Component {
             <div className='basicInput'>
                 <div className='title'>基本信息</div>
                 {[this.geneInput('调查员姓名', 'name'),
-                this.geneInput('职业', 'occupation'),
-                this.geneInput('性格特征', 'character'),
+                this.geneInput('性格特征', 'character', 2),
+                this.geneInput('主武器', 'weapon'),
                 this.geneInput('背景故事', 'background', 1)]}
 
                 <div className='inputField'>
