@@ -5,6 +5,7 @@ import './CSS/prop.css'
 import data from './data/intro.json'
 var temp = {};
 var transName = data.transName;
+var basicValue = data.basicValue;
 
 class PropItem extends React.Component {
     static tipStyle = {
@@ -25,7 +26,6 @@ class PropItem extends React.Component {
         this.class = props.class;
         this.intro = data[transName[this.class]][this.name];
         this.total = props.callback.total;   //总点数回调
-        console.log(this.total);
         this.partial = props.callback.partial;   //类别统计回调
         this.partial(this.name, this.state.num);
     }
@@ -77,7 +77,8 @@ class PropTable extends React.Component {
         if (!(this.name in temp)) temp[this.name] = {};
         this.state = temp[this.name];
         this.res = this.items.map((i) => {
-            return <PropItem class={this.name} name={i} value={i in this.state ? this.state[i] : 0}
+            return <PropItem class={this.name} name={i}
+                value={i in this.state ? this.state[i] : (i in basicValue ? basicValue[i] : 0)}
                 key={sha256(i)} callback={this.callback} />;
         })
     }
