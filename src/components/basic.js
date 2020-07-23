@@ -33,8 +33,9 @@ class Basic extends React.Component {
 
     handleRandom(e) {
         //只随机一次
+        let d = data['性格'];
         if (this.state[e.target.name] === '') {
-            let res = data['性格'][Math.floor(Math.random() * 10)];
+            let res = d[Math.floor(Math.random() * d.length)];
             this.setState({ [e.target.name]: res });
         }
     }
