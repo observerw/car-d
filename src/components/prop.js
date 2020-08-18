@@ -3,6 +3,7 @@ import sha256 from 'js-sha256'
 import ReactTooltip from 'react-tooltip'
 import './CSS/prop.css'
 import data from './data/intro.json'
+
 var temp = {};
 var transName = data.transName;
 var basicValue = data.basicValue;
@@ -31,7 +32,7 @@ class PropItem extends React.Component {
     }
 
     handlePrompt() {
-        this.setState({ isPrompt: true })
+        this.setState({isPrompt: true})
     }
 
     changeNum(e) {
@@ -39,22 +40,27 @@ class PropItem extends React.Component {
         //如果操作合法，则改变当前对象的值
         let n = this.state.num + this.total(e, this.state.num);
         this.partial(this.name, n);
-        this.setState({ num: n });
+        this.setState({num: n});
     }
 
     render() {
         return <tr>
             <td className='propItem'>
-                <ReactTooltip />
-                <div className='propName' data-tip={this.intro} {...PropItem.tipStyle}>
+                <ReactTooltip/>
+                <div className='propName'
+                     data-tip={this.intro} {...PropItem.tipStyle}>
                     {this.name}
                 </div>
                 <div className='propCtrl'>
-                    <button className='propBtn propBtn-left' value='sub' onClick={this.changeNum.bind(this)} > - </button>
+                    <button className='propBtn propBtn-left' value='sub'
+                            onClick={this.changeNum.bind(this)}> -
+                    </button>
                     <div className='propNum'>
                         {this.state.num}
                     </div>
-                    <button className='propBtn propBtn-right' value='add' onClick={this.changeNum.bind(this)} > + </button>
+                    <button className='propBtn propBtn-right' value='add'
+                            onClick={this.changeNum.bind(this)}> +
+                    </button>
                 </div>
             </td>
         </tr>;
@@ -78,8 +84,8 @@ class PropTable extends React.Component {
         this.state = temp[this.name];
         this.res = this.items.map((i) => {
             return <PropItem class={this.name} name={i}
-                value={i in this.state ? this.state[i] : (i in basicValue ? basicValue[i] : 0)}
-                key={sha256(i)} callback={this.callback} />;
+                             value={i in this.state ? this.state[i] : (i in basicValue ? basicValue[i] : 0)}
+                             key={sha256(i)} callback={this.callback}/>;
         })
     }
 
@@ -89,7 +95,7 @@ class PropTable extends React.Component {
     }
 
     handleCost(name, num) {
-        this.setState({ [name]: num });
+        this.setState({[name]: num});
         this.submit(this.state, this.name);
     }
 
@@ -99,11 +105,12 @@ class PropTable extends React.Component {
                 <div className='title'>{transName[this.name]}</div>
                 <table>
                     <tbody>
-                        {this.res}
+                    {this.res}
                     </tbody>
                 </table>
             </div>
         );
     }
 }
+
 export default PropTable;

@@ -1,7 +1,8 @@
-import React, { createRef } from 'react'
+import React, {createRef} from 'react'
 import sha256 from 'js-sha256'
 import './CSS/basic.css'
 import data from "./data/intro.json"
+import {Input} from 'antd'
 
 class Basic extends React.Component {
     static temp = {
@@ -28,7 +29,7 @@ class Basic extends React.Component {
             e.target.style['height'] = 'auto';
             e.target.style['height'] = e.target.scrollHeight + 'px';
         }
-        this.setState({ [e.target.name]: e.target.value });
+        this.setState({[e.target.name]: e.target.value});
     }
 
     handleRandom(e) {
@@ -36,14 +37,14 @@ class Basic extends React.Component {
         let d = data['性格'];
         if (this.state[e.target.name] === '') {
             let res = d[Math.floor(Math.random() * d.length)];
-            this.setState({ [e.target.name]: res });
+            this.setState({[e.target.name]: res});
         }
     }
 
     handleImage(e) {
         let src = e.target.files[0] ? window.URL.createObjectURL(e.target.files[0]) : ' ';
         this.fileInput.current.src = src;
-        this.setState({ image: src });
+        this.setState({image: src});
     }
 
     componentWillUnmount() {
@@ -55,9 +56,15 @@ class Basic extends React.Component {
 
     geneInput(title, name, sta = 0) {
         let temp;
-        if (sta === 0) temp = <input className='input' name={name} value={this.state[name]} onChange={this.handleSubmit} />;
-        if (sta === 1) temp = <textarea className='input inputTextarea' name={name} value={this.state[name]} onChange={this.handleSubmit} />;
-        if (sta === 2) temp = <input className='input' name={name} value={this.state[name]} onClick={this.handleRandom} />;
+        if (sta === 0) temp =
+            <input className='input' name={name} value={this.state[name]}
+                   onChange={this.handleSubmit}/>;
+        if (sta === 1) temp =
+            <textarea className='input inputTextarea' name={name}
+                      value={this.state[name]} onChange={this.handleSubmit}/>;
+        if (sta === 2) temp =
+            <input className='input' name={name} value={this.state[name]}
+                   onClick={this.handleRandom}/>;
         return (<div className='inputField' key={sha256(name)}>
             <div className='itemName'>{title}：</div>
             {temp}
@@ -69,13 +76,13 @@ class Basic extends React.Component {
             <div className='basicInput'>
                 <div className='title'>基本信息</div>
                 {[this.geneInput('调查员姓名', 'name'),
-                this.geneInput('性格特征', 'character', 2),
-                this.geneInput('主武器', 'weapon'),
-                this.geneInput('背景故事', 'background', 1)]}
+                    this.geneInput('性格特征', 'character', 2),
+                    this.geneInput('主武器', 'weapon'),
+                    this.geneInput('背景故事', 'background', 1)]}
 
                 <div className='inputField'>
                     <div className='itemName'>头像：</div>
-                    <div className='input imgInput' >
+                    <div className='input imgInput'>
                         <p>点击此处上传图片</p>
                         <input
                             type='file'
